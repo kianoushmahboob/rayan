@@ -89,6 +89,7 @@ export default {
           clickableColumn: "TD_FName",
           schema: {
             TU_FROWNUM: "ردیف",
+            row: "Row",
             TD_FCode: "کد",
             TD_FName: "نام",
             TD_FCaption: "عنوان",

@@ -36,7 +36,6 @@
               :value="row.TU_FID"
               @change="change"
             />
-
             <!-- منو باز شو زیر هر سطر جدول  -->
             <!-- <div slot="child_row" slot-scope="props">
             </div>-->
@@ -97,13 +96,19 @@ export default {
   },
   data: function() {
     return {
-      d: "",
+      d: 1,
       TableRefreshImgAnimation: false,
       allSelected: false,
       selectedRow: [],
       searchResult: [],
       tableData: []
     };
+  },
+  mounted() { 
+    let counter = 1
+    for (const d of this.data) {
+      d.row = counter++
+    }
   },
   methods: {
     RefreshTable() {
