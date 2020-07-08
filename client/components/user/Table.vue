@@ -68,7 +68,7 @@ export default {
 
     columns() {
       // custom columns name and table Schema data
-      const columns = ["checkbox", "row"];
+      const columns = ["checkbox"];
       for (const key in this.dataSchema) {
         columns.push(key);
       }
@@ -102,12 +102,6 @@ export default {
       searchResult: [],
       tableData: []
     };
-  },
-  mounted() { 
-    let counter = 1
-    for (const rowNumber of this.data) {
-      rowNumber.row = counter++
-    }
   },
   methods: {
     RefreshTable() {
