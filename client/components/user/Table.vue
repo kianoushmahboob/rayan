@@ -8,8 +8,8 @@
       <client-only>
         <div id="app" v-cloak>
           <v-client-table :columns="columns" v-model="tableData" :options="options">
-            <button
-            class="subgroup"
+            <button 
+              :class="['subgroup' , { 'activeSubGroup' : currentParentGroupID == props.row[idField] }]"
               v-if="breadcrumb"
               :slot="clickableColumn"
               slot-scope="props"
@@ -60,12 +60,13 @@ export default {
     "clearRows",
     "checkboxDisabled",
     "breadcrumb",
-    "clickableColumn"
+    "clickableColumn",
+    "idField",
+    "currentParentGroupID"
   ],
 
   computed: {
     // تعریف ستون های جدول
-
     columns() {
       // custom columns name and table Schema data
       const columns = ["checkbox"];

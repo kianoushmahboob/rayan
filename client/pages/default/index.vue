@@ -26,6 +26,8 @@
       :clearRows="components.table.unSelect"
       :checkboxDisabled="components.table.checkboxEnabled"
       :clickableColumn="components.table.clickableColumn"
+      idField="TD_FID"
+      :currentParentGroupID="currentParentGroupID"
       :breadcrumb="components.breadcrumb.values"
       @addToBreadcrumb="addToBreadcrumb"
       @selectedRowChanged="selectedRowChanged"
@@ -105,6 +107,7 @@ export default {
         form: { show: false, actionStatus: "", inputsReadonly: true },
         breadcrumb: { show: true, values: [{ TD_FName: "خانه" }] }
       },
+      currentParentGroupID: 0,
       selectingMode: "start"
     };
   },
@@ -187,7 +190,7 @@ export default {
     },
     removeFromBreadcrumb() {
       if (this.components.breadcrumb.values.length > 1) {
-        this.components.breadcrumb.values.pop();
+        this.currentParentGroupID = this.components.breadcrumb.values.pop().TD_FID;
         this.updateTable();
       }
     },
