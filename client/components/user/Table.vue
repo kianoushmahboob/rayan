@@ -96,7 +96,6 @@ export default {
   },
   data: function() {
     return {
-      d: 1,
       TableRefreshImgAnimation: false,
       allSelected: false,
       selectedRow: [],
@@ -106,8 +105,8 @@ export default {
   },
   mounted() { 
     let counter = 1
-    for (const d of this.data) {
-      d.row = counter++
+    for (const rowNumber of this.data) {
+      rowNumber.row = counter++
     }
   },
   methods: {
