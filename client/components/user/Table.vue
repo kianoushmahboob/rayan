@@ -9,11 +9,13 @@
         <div id="app" v-cloak>
           <v-client-table :columns="columns" v-model="tableData" :options="options">
             <button
+            class="subgroup"
               v-if="breadcrumb"
               :slot="clickableColumn"
               slot-scope="props"
               @click="addToBreadcrumb(props.row)"
             >{{props.row[clickableColumn]}}</button>
+
             <!-- چک باکس هدر  -->
             <div slot="filter__checkbox">
               <input
@@ -35,7 +37,6 @@
               @change="change"
             />
 
-
             <!-- منو باز شو زیر هر سطر جدول  -->
             <!-- <div slot="child_row" slot-scope="props">
             </div>-->
@@ -43,11 +44,14 @@
         </div>
       </client-only>
     </div>
+      
   </div>
+  
 </template>
 
 <script>
 import "../../assets/sass/components/auth/Table.scss";
+
 // اندازه های اولیه هر ستون جدول
 // import "./../../assets/sass/components/columnSize/profile.scss";
 export default {
@@ -59,12 +63,13 @@ export default {
     "breadcrumb",
     "clickableColumn"
   ],
+
   computed: {
     // تعریف ستون های جدول
 
     columns() {
       // custom columns name and table Schema data
-      const columns = ["checkbox","row"];
+      const columns = ["checkbox", "row"];
       for (const key in this.dataSchema) {
         columns.push(key);
       }
