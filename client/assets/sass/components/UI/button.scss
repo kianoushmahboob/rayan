@@ -1,0 +1,139 @@
+@import "../../style.scss";
+.btn { 
+    display: inline;
+}
+.button {
+    position: relative;
+    background-color: $primary !important;
+    border: 2px solid $primary;
+    margin: 10px;
+    border-radius: 50px !important;
+    transition: all 500ms;
+    span {
+        text-align: center;
+        font-size: 10pt;
+        color: $white;
+        transition: color 800ms;
+    }
+    img {
+        left: 0;
+        width: 15px;
+        margin-right: 5px;
+        transition: all 800ms;
+    }
+
+    &:hover img {
+        filter: invert(100%);
+    }
+    &:hover span {
+        color: $black;
+    }
+    .v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
+        opacity: 0.5 !important;
+    }
+
+    &:disabled {
+        background: #bea5a5 !important;
+        border: none;
+        opacity: 0.4;
+        &:hover span {
+            color: $white;
+        }
+        &:hover img {
+            filter: none;
+        }
+        .v-btn:not(.v-btn--text):not(.v-btn--outlined):hover:before {
+            opacity: 0 !important;
+        }
+    }
+
+}
+.withOutLable { 
+    min-width: unset !important; 
+    width: 35px;
+    height: 35px !important;
+    img { 
+        margin-right: 0px;
+    }
+}
+
+
+.sm {
+    width: 77px !important;
+    height: 25px !important;
+
+}
+.sm.withOutLable{ 
+    width: 25px !important;
+    height: 25px !important;
+    padding: 0px !important;
+    img{
+        width: 12px !important;
+    }
+}
+.md{ 
+    width: 80px !important;
+    height: 30px !important;
+}
+.md.withOutLable{ 
+    width: 30px !important;
+    height: 30px !important;
+    padding: 0px !important;
+    img{
+        width: 13px !important;
+    }
+}
+.lg{
+    width: 95px !important;
+    height: 33px !important;
+}
+.lg.withOutLable{ 
+    width: 33px !important;
+    height: 33px !important;
+    padding: 0px !important;
+    img{
+        width: 15px !important;
+    }
+}
+.xl{ 
+    width: 100px !important;
+    height: 40px !important;
+}
+.xl.withOutLable{ 
+    width: 40px !important;
+    height: 40px !important;
+    padding: 0px !important;
+    img{
+        width: 17px !important;
+    }
+}
+
+.tooltip {
+    position: absolute;
+    padding: 10px;
+    font-size: 10pt;
+    border-radius: 5px;
+    bottom: 150%;
+    background-color: rgb(82, 82, 82);
+    opacity:0 ;
+    color: white;
+    transition: all 800ms !important;
+}
+.tooltip::after {
+    content: '';
+    position: absolute;
+    left: 42%;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgb(82, 82, 82);
+    clear: both;
+}
+.button:hover .tooltip{
+    opacity: 1;
+    color: white;
+
+   
+}

@@ -1,0 +1,65 @@
+@import '../../style.scss';
+.v-select {
+    border-radius: 5px;
+    margin-top: 0px;
+.v-select-bar {
+    height: 27px;
+}
+.v-select-inp{
+    text-align: right;
+    font-size: 8pt;
+}
+}
+.v-select-btn-clear, .v-select-btn-dd {
+    padding-bottom: 5px !important;
+}
+.v-select [class*=v-select-btn] {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+}
+.form__label__select {
+    top: -10px !important;
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: #666666;
+}
+.v-select-selected {
+    z-index: 3;
+}
+
+
+.v-select-list { 
+    background-color: #fff7e9 !important;
+}
+
+.-disabled {
+    background-color: #e9ecef;
+}
+.v-select .v-select-option.-selected { 
+    color: $primary;
+    opacity: .8;
+    
+}
+.v-select-btn{
+    font-size: 10pt !important;
+}
+
+.v-select-option {
+    font-size: 11pt;
+
+}
+.SelectDisabled {
+    width: 100%;
+    height: 32px;
+    background-color: #e9ecef;
+    position: absolute;
+    top: 16px;
+    border-radius: 5px;
+    z-index: 101;
+    padding-top: 4px;
+    padding-right: 5px;
+    font-size: 10pt;
+}

@@ -1,0 +1,87 @@
+@import "../../style.scss";
+
+textarea {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.3rem 0.75rem !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #495057 !important;
+  background-color: #fff !important;
+  background-clip: padding-box !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 0.25rem !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !important;
+  &:disabled { 
+    background-color: #e9ecef !important;
+  }
+}
+
+.errorStyleTextarea {
+  background-color: transparent;
+  color: rgb(241, 69, 69);
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 9pt;
+  text-align: left;
+  position: absolute;
+  right: 0;
+  top: 50px !important;
+}
+
+// input text style
+
+.form__group {
+  position: relative;
+  padding: 15px 0 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 1;
+  // border-bottom: 2px solid $gray;
+  outline: 0;
+  font-size: 1rem;
+  color: $black;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &:placeholder-shown ~ .form__label {
+    font-size: 0.9rem;
+    cursor: text;
+    top: 0px;
+  }
+}
+
+.form__label {
+  position: absolute;
+  top: -12px;
+  display: block;
+  transition: 0.2s;
+  font-size: 0.8rem;
+  color: rgb(102, 102, 102);
+}
+
+.form__field:focus {
+  ~ .form__label {
+    position: absolute;
+    top: -8px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: $primary;
+    font-weight: 1500;
+  }
+  padding-bottom: 7px;
+  font-weight: 700;
+  border-width: 2px;
+}

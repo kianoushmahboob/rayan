@@ -1,0 +1,88 @@
+@import '../style.scss';
+
+
+.HeaderMangerProfileFixed { 
+    position: fixed;
+    top: 45px;
+    z-index: 101;
+    animation:slide-down 0.7s;
+    opacity:1; 
+}
+.slide-fade-enter-active {
+	transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+	transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+ {
+	transform: translateX(-100px);
+	opacity: 0;
+  }
+  @keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    } 
+}
+
+
+.HeaderManager { 
+    direction: ltr;
+    background-color: rgb(235, 235, 235);
+    box-shadow: 1px 1px 5px $black;
+    margin-bottom: 10px;
+    button {
+        width: 70px;
+        height: 35px;
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 1px 1px 2px $black;
+        color: $white;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .InsertBtn {
+        background-color: $green;
+    }
+    .EditBtn {
+        background-color: $blue;
+    }
+    .DeletBtn {
+        background-color: $primary;
+    }
+    .ShowBtn {
+        border: 2px solid $green;
+        color: $black;
+    }
+    .AcceptBtn {
+        float: right;
+        background-color: $green;
+        margin-left: 10px;
+    }
+    .AcceptBtn:disabled {
+        box-shadow: none;
+        opacity: 0.4;
+    }
+    .CanceltBtn {
+        float: right;
+        background-color: $primary;
+    }
+    .CanceltBtn:disabled {
+        box-shadow: none;
+        opacity: 0.4;
+    }
+}
+.HeaderManagerProfile {
+    background: $gray;
+    height: 45px;
+}
+.dialogWarningImg { 
+    width: 50px;
+    margin-right: auto;
+    margin-left: 10px;
+}

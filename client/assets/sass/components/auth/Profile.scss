@@ -1,0 +1,193 @@
+@import "../../style.scss";
+
+.profileFileInp {
+    height: 0px !important;
+    padding: 0px !important;
+    opacity: 0;
+}
+.ProfileContainer { 
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.profileFileLable {
+    padding: 5px;
+    background-color: $primary;
+    color: $white;
+    border-radius: 10px;
+    width: 110px;
+    height: auto;
+    margin-right: auto;
+    margin-left: 25px;
+    margin-top: 10px;
+    text-align: center;
+}
+.profileTitle {
+    padding-bottom: 0 !important;
+    h2 {
+        text-align: right;
+        padding-top: 4%;
+    }
+}
+.profileImg {
+    position: relative;
+    padding-bottom: 0;
+    img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 2px solid $primary;
+        float: left;
+        margin-left: 15px;
+    }
+    .profileOverlay {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: none;
+        position: absolute;
+        left: 28px;
+        top: 13px;
+        background-color: rgba(51, 51, 51, 0.568);
+        opacity: 0;
+        transition: opacity 500ms;
+        .deleteProfileImg {
+            width: 30px;
+            height: 30px;
+            border: none;
+            position: absolute;
+            top: 34px;
+            left: 17px;
+            cursor: pointer;
+        }
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.form__field:focus {
+    ~ .form__label {
+        top: -10px !important;
+    }
+}
+.form__label {
+    top: -15px !important ;
+    right: 0px;
+    font-size: 0.8rem !important;
+}
+.form__group {
+    margin-top: 10px !important;
+}
+.custompadding {
+    // margin-top: 15px;
+    input {
+        display: block;
+        width: 100%;
+        height: calc(1.2em + 0.65rem + 2px);
+        padding: 0.3rem 0.75rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    input:disabled {
+        background: #e9ecef;
+    }
+}
+.more {
+    img {
+        width: 25px;
+        cursor: pointer;
+    }
+
+    .animationMoreBtn {
+        -webkit-animation: mover 1s infinite alternate;
+        animation: mover 1s infinite alternate;
+    }
+    @-webkit-keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-10px);
+        }
+    }
+    @keyframes mover {
+        0% {
+            transform: translateY(0);
+        }
+        100% {
+            transform: translateY(-10px);
+        }
+    }
+}
+.errorStyle {
+    top: 45px;
+}
+// animation for more
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.6s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.HeaderManagerProfile {
+    position: relative;
+    background: #ababab;
+    height: 45px;
+    
+  
+}
+.HeaderMangerProfileFixed { 
+    position: fixed;
+    z-index: 999;
+    top: 46px;
+    animation:slide-down 0.7s;
+    opacity:1;  
+} 
+
+.v-select [class*=v-select-btn] { 
+    font-size: 10pt;
+}
+
+.slide-fade-enter-active {
+	transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+	transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+ {
+	transform: translateX(-100px);
+	opacity: 0;
+  }
+  @keyframes slide-down {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    } 
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    } 
+}
+
+@media (min-width: 480px) {
+    .custompadding div .col-sm-4,
+    .col-md-3,
+    .col-6,
+    .col-md-6 {
+        margin-top: 25px;
+    }
+}

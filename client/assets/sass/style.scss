@@ -1,0 +1,79 @@
+//   variable
+$primary: #e27973;
+$green: #2a9d8f;
+$blue: #2b959a;
+$gray: #727272;
+$white: #f8f9fa;
+$black: rgb(27, 27, 27);
+
+$gradient: linear-gradient(270deg, rgba(226, 121, 115, 1) 0%, rgba(226, 121, 115, 1) 42%, #611010 100%);
+/* font-Vazir */
+@font-face {
+  font-family: Vazir;
+  src: url("http://fonts.codearena.ir/rastikerdar/vazir/vazir.eot");
+  src: url("http://fonts.codearena.ir/rastikerdar/vazir/vazir.eot?#iefix") format("embedded-opentype"),
+    url("http://fonts.codearena.ir/rastikerdar/vazir/vazir.woff") format("woff"),
+    url("http://fonts.codearena.ir/rastikerdar/vazir/vazir.ttf") format("truetype");
+  font-weight: normal;
+}
+* {
+  font-family: "Vazir";
+}
+
+// public style
+.rtl {
+  direction: rtl !important;
+}
+.ltr {
+  direction: ltr !important;
+}
+
+.padding-x {
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+*:focus {
+  outline: none;
+  // border:1px solid #4D90FE;
+  // -webkit-box-shadow: 0px 0px 5px #4d90fe;
+  // box-shadow: 0px 0px 5px #4d90fe;
+}
+.dis-flex {
+  display: flex;
+}
+.bgPrimary {
+  background-color: $primary;
+}
+.p-0 {
+  padding: 0px;
+}
+.mt-14 {
+  margin-top: 65px !important;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.font-10 {
+  font-size: 10pt;
+}
+.display-flex {
+  display: flex !important;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.w-auto {
+  width: auto;
+}
+.no-border {
+  border: 0px !important;
+}
+
+.dis-none {
+  display: none;
+}

@@ -1,0 +1,92 @@
+@import '../../style.scss';
+input {
+    display: block;
+    width: 100%;
+    height: calc(1.2em + 0.65rem + 2px);
+    padding: 0.3rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.errorStyle {
+    background-color: transparent;
+    color: rgb(241, 69, 69);
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 9pt;
+    text-align: left;
+    position: absolute;
+	right: 0;
+    top: 54px;
+  }
+  
+   // input text style
+  
+   .form__group {
+    position: relative;
+    padding: 15px 0 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .form__field {
+    font-family: inherit;
+    width: 100%;
+    border: 1;
+    // border-bottom: 2px solid $gray;
+    outline: 0;
+    font-size: 1rem;
+    color: $black;
+    padding: 7px 0;
+    background: transparent;
+    transition: border-color 0.2s;
+  
+    &::placeholder {
+      color: transparent;
+    }
+  
+    &:placeholder-shown ~ .form__label {
+      font-size: 0.9rem;
+      cursor: text;
+      top: 0px;
+    }
+  }
+  
+  .form__label {
+    position: absolute;
+    top: -12px;
+    display: block;
+    transition: 0.2s;
+    font-size: 0.8rem;
+    color: rgb(102, 102, 102);
+  }
+  
+  .form__field:focus {
+    ~ .form__label {
+      position: absolute;
+      top: -8px;
+      display: block;
+      transition: 0.2s;
+      font-size: 1rem;
+      color: $primary;
+      font-weight: 1500;
+    }
+    padding-bottom: 7px;
+    font-weight: 700;
+    border-width: 2px;
+  }
+
+  .inputIcon { 
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 23px;
+    left: 7px;
+  }

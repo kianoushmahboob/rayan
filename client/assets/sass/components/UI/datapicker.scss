@@ -1,0 +1,31 @@
+.datapicker {
+    direction: ltr;
+    margin-top: 25px;
+    .form-control{ 
+        opacity: 1;
+    }
+    .showInput {
+        position: absolute;
+        top: 15px;
+        right: 0px;
+        width: 86.5%;
+        height: 32px;
+    }
+    input {
+        border-bottom-left-radius: 0px !important;
+        border-top-left-radius: 0px !important;
+        text-align: left;
+    }
+}
+
+.errorMessages { 
+    background-color: transparent;
+    color: #f14545;
+    margin-right: auto;
+    margin-left: auto;
+    font-size: 9pt;
+    text-align: left;
+    position: absolute;
+    right: 0;
+    top: 45px;
+}
