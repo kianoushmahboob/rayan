@@ -3,7 +3,6 @@
 		<div class="Triangle Triangle--two" />
 		<div class="Triangle Triangle--one" />
 		<div class="Triangle Triangle--three" />
-		<v-alert></v-alert>
 		<div class="Triangle Triangle--four" />
 	</div>
 </template>
