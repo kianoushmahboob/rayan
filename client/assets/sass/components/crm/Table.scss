@@ -8,7 +8,7 @@
         overflow: hidden;
         direction: ltr;
         max-width: 100%;
-        margin: 0px auto 10px auto;
+ 
         padding-top: 0px;
 
         
@@ -86,7 +86,7 @@
             color: $white !important;
         }
         table thead {
-            background-color: $primary;
+            background-color: $primary !important;
         }
         .VueTables__limit-field {
             display: flex;
@@ -106,8 +106,8 @@
             vertical-align: sub;
         }
         table {
-            min-width: 200px;
-            width: auto;
+            
+           
             direction: ltr !important;
             thead tr th input {
                 width: 100%;

@@ -118,10 +118,10 @@
           </v-row>
 <slot name="table">
               </slot>
-          <!-- <v-col cols="12" class="text-center py-0">
+          <v-col cols="12" class="text-center py-0">
             <img src="/more.png" @click="showAllActivities = !showAllActivities" />
-          </v-col> -->
-          <!-- <div v-show="showAllActivities">
+          </v-col>
+          <div v-show="showAllActivities">
             <v-row class="cardGrid">
               <Checkbox type="checkbox" class="ActivityCheckbox" />
               <v-col cols="12" md="2" class="p-0 ActivitycardBox">
@@ -165,7 +165,7 @@
                 </v-row>
               </v-col>
             </v-row>
-          </div> -->
+          </div>
         </v-col>
       </v-row>
     </v-container>

@@ -1,4 +1,5 @@
 <template>
+<div class="Table ">
   <client-only>
     <div id="app" v-cloak>
       <v-client-table :columns="columns" v-model="data" :options="options">
@@ -11,10 +12,7 @@
         >Link</a>
 
         <div v-if="true" slot="child_row" slot-scope="props">
-          <slot name="card">
-      
-              </slot>
-         
+          <slot name="card"></slot>
         </div>
 
         <div slot="name" slot-scope="{row, update, setEditing, isEditing, revertValue}">
@@ -38,6 +36,7 @@
       </v-client-table>
     </div>
   </client-only>
+  </div>
 </template>
 
 <script>
@@ -46,7 +45,7 @@ import Card from "./Card";
 
 export default {
   components: {
-    Card,
+    Card
   },
   data() {
     return {
