@@ -31,6 +31,8 @@ class Controller extends ErrorController {
             }))
         }
     }
+
+
 }
 
 module.exports = Controller

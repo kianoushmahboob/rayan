@@ -42,7 +42,7 @@ class UserModel extends Model {
             return null
         }
     }
-    
+
     async insert(data) {
         try {
             let RetID
@@ -79,6 +79,32 @@ class UserModel extends Model {
             console.log(error)
             return null
         }
+    }
+    async findById(id) {
+        try {
+
+        }
+        catch {
+
+        }
+    }
+
+    async delete(id) {
+        try {
+            let RetID
+            let RetMsg
+            const result = await this.Database.request()
+                .input('FID', this.sql.BigInt, id)
+                .output('RetID', this.sql.BigInt, RetID)
+                .output('RetMsg', this.sql.NVarChar, RetMsg)
+                .execute('USP_TDefault_Del')
+            console.log(result)
+        }
+        catch(error) {
+            console.log(error)
+            return null
+        }
+
     }
 
 }

@@ -19,4 +19,6 @@ router.get('/defaults/insert-user-form', isAuthenticated, isUser, DefaultControl
 
 router.post('/default', isAuthenticated, isUser,  DefaultController.insert)
 
+router.delete('/default/:id', isAuthenticated, isUser,  DefaultController.delete)
+
 module.exports = router

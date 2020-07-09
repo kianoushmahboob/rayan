@@ -116,6 +116,20 @@ class DefaultController extends Controller {
             next(error)
         }
     }
+
+    async delete(req, res, next) {
+        try {
+            const defaultId = req.params.id
+            const result = await Default.delete(defaultId)
+            this.responseHandler(result, res)
+        }
+        catch (error) {
+            if (!error.statusCode) {
+                error.statusCode = 500
+            }
+            next(error)
+        }
+    }
 }
 
 module.exports = new DefaultController()
