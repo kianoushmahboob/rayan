@@ -6,10 +6,10 @@ const autoBind = require('auto-bind')
 const ErrorController = require('./errorController')
 // root path util
 const RootPath = require('./../../util/path')
-const  Model  = require('./../model/Model')
+const Model = require('./../model/Model')
 
 class Controller extends ErrorController {
-    constructor() {
+    constructor () {
         super()
         autoBind(this)
     }
