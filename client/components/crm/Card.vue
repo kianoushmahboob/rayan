@@ -38,8 +38,11 @@
                 <Checkbox class="p-0 mt-0 w-auto" />
                 <p class="mb-0 mt-2 font-10 w-100 mr-1">فعال</p>
               </v-col>
+              
+              
 
-              <v-col cols="12" class="display-flex py-0">
+            </v-col>
+              <!-- <v-col cols="12" class="display-flex py-0">
                 <Checkbox class="p-0 mt-0 mr-0 w-auto" />
                 <p class="mb-0 font-10 w-100 mt-2 mr-1">نوع پروژه</p>
               </v-col>
@@ -47,11 +50,6 @@
             <v-col cols="12" md="2" class="p-0 cardBox pr-2">
               <v-row>
                 <v-col cols="8" class="p-0">
-                  <v-col cols="12" class="display-flex py-1">
-                    <img src="/user.png" class="cardIcon" />
-                    <p class="mb-0 mt-1 font-10 w-100 mr-1">کیانوش محبوب</p>
-                  </v-col>
-
                   <v-col cols="12" class="display-flex py-1">
                     <img src="/mobile.png" class="cardIcon" />
                     <p class="mb-0 mt-1 font-10 w-100 mr-1">03134599856</p>
@@ -112,14 +110,18 @@
                 <v-col cols="12" class="display-flex py-1">
                   <img src="/test.jpg" class="cardCustomerImg" />
                 </v-col>
+                <v-col cols="12" class="py-0">
+                  <p class="my-0 font-10 w-100 mr-1">کیانوش محبوب</p>
+                </v-col>
               </v-row>
-            </v-col>
+            </v-col> -->
           </v-row>
-
-          <v-col cols="12" class="text-center py-0">
+<slot name="table">
+              </slot>
+          <!-- <v-col cols="12" class="text-center py-0">
             <img src="/more.png" @click="showAllActivities = !showAllActivities" />
-          </v-col>
-          <div v-show="showAllActivities">
+          </v-col> -->
+          <!-- <div v-show="showAllActivities">
             <v-row class="cardGrid">
               <Checkbox type="checkbox" class="ActivityCheckbox" />
               <v-col cols="12" md="2" class="p-0 ActivitycardBox">
@@ -151,9 +153,8 @@
                   </p>
                 </v-col>
               </v-col>
-            
+
               <v-col cols="12" class="py-2">
-           
                 <v-row class="ActivityText">
                   <v-col cols="6" class="activityBoxText">
                     <p>متن اولیه : لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
@@ -164,7 +165,7 @@
                 </v-row>
               </v-col>
             </v-row>
-          </div>
+          </div> -->
         </v-col>
       </v-row>
     </v-container>
@@ -172,11 +173,12 @@
 </template>
 
 <script>
-
 import "../../assets/sass/components/UI/Card.scss";
+import Table from './table'
 export default {
-
-
+    components : { 
+    Table 
+  }, 
   data() {
     return {
       showAllActivities: false,

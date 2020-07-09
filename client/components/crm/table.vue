@@ -8,10 +8,13 @@
           target="_blank"
           :href="props.row.uri"
           class="glyphicon glyphicon-eye-open"
-        >ttt</a>
+        >Link</a>
 
-        <div slot="child_row" slot-scope="props">
-          <Card />
+        <div v-if="true" slot="child_row" slot-scope="props">
+          <slot name="card">
+      
+              </slot>
+         
         </div>
 
         <div slot="name" slot-scope="{row, update, setEditing, isEditing, revertValue}">
@@ -42,9 +45,9 @@ import "../../assets/sass/components/crm/Table.scss";
 import Card from "./Card";
 
 export default {
-  components : { 
-    Card 
-  }, 
+  components: {
+    Card,
+  },
   data() {
     return {
       columns: ["name", "code", "uri"],
@@ -458,7 +461,8 @@ export default {
         },
         editableColumns: ["name"],
         sortable: ["name", "code"],
-        filterable: ["name", "code"]
+        filterable: ["name", "code"],
+        filterByColumn: true
       }
     };
   }

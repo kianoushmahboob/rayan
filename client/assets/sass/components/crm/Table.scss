@@ -171,12 +171,7 @@
             }
         }
     }
-    .table-striped tbody tr:nth-of-type(odd) {
-        background-color: rgba(215, 22, 53, 0) !important;
-    }
-    .table-striped tbody tr:nth-of-type(even) {
-        background-color: rgba(215, 22, 53, 0.06) !important;
-    }
+
     .v-pagination {
         justify-content: flex-start !important;
     }
