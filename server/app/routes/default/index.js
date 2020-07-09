@@ -11,13 +11,13 @@ const isUser = require('./../../middleware/is-user')
 const DefaultController = require('./../../controller/default/defalutController')
 // routes
 
-router.get('/default', isAuthenticated, isUser, DefaultController.getData)
-router.get('/default/:id', isAuthenticated, isUser, DefaultController.getDefaultsForTable)
+// router.get('/default', isAuthenticated, isUser, DefaultController.getData)
+router.get('/default/:id/init', isAuthenticated, isUser, DefaultController.getDefaultsForTable)
 
 // اطلاعات select و کد شخص فرم ایجاد کاربر
 router.get('/defaults/insert-user-form', isAuthenticated, isUser, DefaultController.getDataForInsertUserForm)
 
-router.post('/default', isAuthenticated, isUser,  DefaultController.insert)
+router.post('/default', isAuthenticated, isUser, DefaultController.insert)
 
 router.delete('/default/:id', isAuthenticated, isUser,  DefaultController.delete)
 

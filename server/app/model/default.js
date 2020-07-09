@@ -1,7 +1,7 @@
 const Model = require('./Model')
 
 class UserModel extends Model {
-    constructor() {
+    constructor () {
         super()
     }
 
@@ -50,12 +50,13 @@ class UserModel extends Model {
 
             const result = await this.Database.request()
                 .input('State', this.sql.NVarChar, 'Insert')
+                .input('TD_FID', this.sql.Int, data.TD_FID)
                 .input('TD_FCode', this.sql.Int, data.TD_FCode)
                 .input('TD_FName', this.sql.NVarChar, data.TD_FName)
                 .input('TD_FCaption', this.sql.NVarChar, data.TD_FCaption)
                 .input('TD_FComment', this.sql.NVarChar, data.TD_FComment)
-                .input('TD_FValue1', this.sql.Int, data.TD_FValue1)
-                .input('TD_FValue2', this.sql.Int, data.TD_FValue2)
+                .input('TD_FValue1', this.sql.Money, data.TD_FValue1)
+                .input('TD_FValue2', this.sql.Money, data.TD_FValue2)
                 .input('TD_FValue3', this.sql.NVarChar, data.TD_FValue3)
                 .input('TD_FOrder', this.sql.Int, data.TD_FOrder)
                 .input('TD_FActive', this.sql.TinyInt, data.TD_FActive)

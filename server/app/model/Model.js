@@ -2,7 +2,7 @@ const sql = require('mssql')
 const autoBind = require('auto-bind')
 
 const config = {
-    server: "NODE-PC\\MSSQL2014",
+    server: "localhost",
     database: "DB_Rayan",
     user: "sa",
     password: "Mssql2014",
@@ -30,7 +30,7 @@ const config = {
 
 class Model {
 
-    constructor() {
+    constructor () {
         autoBind(this)
         this.config = config
         this.Database = null
@@ -87,6 +87,8 @@ class Model {
             const result = await this.Database.request()
                 .query(`select  DBO.UFN_Coding('${tableName}', ${Year}) as code`)
 
+            console.log('Year', Year)
+            console.log('UFN_Coding', result)
             return result.recordset[0].code
         } catch (error) {
             console.log(error)
