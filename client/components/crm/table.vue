@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import "../../assets/sass/components/auth/Table.scss";
+import "../../assets/sass/components/crm/Table.scss";
 import Card from "./Card";
 
 export default {

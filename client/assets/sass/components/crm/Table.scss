@@ -1,3 +1,4 @@
+@import '../../style.scss';
 @import "../../style.scss";
 
 #app {
@@ -105,7 +106,7 @@
             vertical-align: sub;
         }
         table {
-            min-width: 2000px;
+            min-width: 200px;
             width: auto;
             direction: ltr !important;
             thead tr th input {
