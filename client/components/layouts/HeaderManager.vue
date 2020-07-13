@@ -260,6 +260,7 @@
 				}
 			},
 			buttonVisibilityForDefaultStatus(status) {
+				console.log("staus", status);
 				if (status === "start") {
 					this.buttons.edit.enable = false;
 					this.buttons.insert.enable = true;

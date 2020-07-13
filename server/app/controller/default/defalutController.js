@@ -88,6 +88,11 @@ class DefaultController extends Controller {
 
   async insert(req, res, next) {
     try {
+      const errors = this.validationErrorHandler(req, res, next)
+      if (errors) {
+        return
+      }
+
       const data = req.body
       const result = await Default.insert(data)
       this.responseHandler(result, res)
@@ -100,6 +105,11 @@ class DefaultController extends Controller {
 
   async update(req, res, next) {
     try {
+      const errors = this.validationErrorHandler(req, res, next)
+      if (errors) {
+        return
+      }
+
       const data = req.body
       const result = await Default.update(data)
       this.responseHandler(result, res)

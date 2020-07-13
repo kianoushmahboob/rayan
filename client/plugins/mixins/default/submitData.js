@@ -31,7 +31,7 @@ export default {
                 this.showResponseErrors(error);
             }
         },
-        async submit(status, data, TD_FID_Group = 0) {
+        async submitMixin(status, data, TD_FID_Group = 0) {
             try {
 
                 this.$store.dispatch("tableRefresh/refreshStart");
@@ -48,11 +48,12 @@ export default {
                 if (result) {
                     this.showResponseSuccessMessages(result);
                     await this.updateTable()
+                    return true
                 }
-
                 this.$store.dispatch("tableRefresh/refreshStop");
+                return false
+
             } catch (error) {
-                // maybe need $emit("failed")
                 console.log(error)
                 this.showResponseErrors(error);
                 this.$store.dispatch("tableRefresh/refreshStop");

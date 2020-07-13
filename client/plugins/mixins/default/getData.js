@@ -4,7 +4,7 @@ export default {
     }
   },
   methods: {
-    async getData(mode, defaultId = 0, groupId = 0) {
+    async getDataMixin(mode, defaultId = 0, groupId = 0) {
       try {
         let data
         let url

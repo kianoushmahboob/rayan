@@ -110,6 +110,7 @@
 				selectingMode: "start"
 			};
 		},
+		// آخرین زیرگروه فعال parent
 		computed: {
 			currentDefaultID() {
 				const breadcrumbs = this.components.breadcrumb.values;
@@ -127,6 +128,7 @@
 			// تابعی برایه مدیریت هدر اکشن ها
 			async headerManagerEventHandler(status) {
 				try {
+					const oldStatus = this.components.form.actionStatus;
 					this.components.table.checkboxEnabled = true;
 					this.components.form.actionStatus = status;
 					if (status == "start") {
@@ -134,21 +136,30 @@
 						this.components.form.show = false;
 					} else if (status == "insert") {
 						this.components.headerManager.status = status;
-						await this.insertInit();
+						// جلوگیری از به روزرسانی اطلاعات در صورت مواجه شدن با خطا در عملیات قبلی
+						if (oldStatus != "failed") {
+							await this.insertInit();
+						}
 
 						this.components.table.checkboxEnabled = false;
 						this.components.form.show = true;
 					} else if (status == "show") {
 						this.components.headerManager.status = status;
 						// show data get .......
-						await this.editAndShowInit();
+						// جلوگیری از به روزرسانی اطلاعات در صورت مواجه شدن با خطا در عملیات قبلی
+						if (oldStatus != "failed") {
+							await this.editAndShowInit();
+						}
 						this.components.form.inputsReadonly = true;
 						this.components.table.show = true;
 						this.components.form.show = true;
 					} else if (status == "edit") {
 						this.components.headerManager.status = status;
 						// show data get .......
-						await this.editAndShowInit();
+						// جلوگیری از به روزرسانی اطلاعات در صورت مواجه شدن با خطا در عملیات قبلی
+						if (oldStatus != "failed") {
+							await this.editAndShowInit();
+						}
 						this.components.table.show = true;
 						this.components.form.show = true;
 					} else if (status == "canceled") {
@@ -158,19 +169,21 @@
 					} else if (status == "delete") {
 						this.components.headerManager.status = status;
 						for (const id of this.components.table.selectedItems) {
-							this.submit("delete", id);
+							await this.submitMixin("delete", id);
+							this.clearSelectedItems();
 						}
 					} else if (status == "done") {
-						this.components.headerManager.status = status;
 						this.components.form.show = false;
-						// this.components.form.show = false
+						this.components.headerManager.status = this.selectingMode;
+						this.headerManagerEventHandler(this.selectingMode);
 					} else if (status == "failed") {
-						this.components.headerManager.status = status;
+						this.components.headerManager.status = oldStatus;
 						this.components.form.show = true;
-						// this.components.form.show = false
+						this.headerManagerEventHandler(oldStatus);
 					}
 				} catch (error) {
 					this.components.headerManager.status = "failed";
+					this.headerManagerEventHandler(oldStatus);
 				}
 			},
 			cancelEvent() {
@@ -182,11 +195,20 @@
 				try {
 					const status = this.components.headerManager.status;
 					// اعمال مربوط به تایید کردن عملیات
-					await this.submit(status, this.defaultValue, this.currentDefaultID);
-					this.components.headerManager.status = "done";
-					this.headerManagerEventHandler("done");
+					const done = await this.submitMixin(
+						status,
+						this.defaultValue,
+						this.currentDefaultID
+					);
+					if (done) {
+						this.components.headerManager.status = "done";
+						this.headerManagerEventHandler("done");
+					} else {
+						this.components.headerManager.status = "failed";
+						this.headerManagerEventHandler("failed");
+					}
 				} catch (error) {
-					this.components.headerManager.status = "failed";
+					console.log(error);
 				}
 			},
 			// checkbox changes
@@ -207,8 +229,9 @@
 			// متد های کمکی برای مقدار دهی اولیه
 			async insertInit() {
 				try {
-					const data = await this.getData(
+					const data = await this.getDataMixin(
 						"default.insert",
+						null,
 						this.currentDefaultID
 					);
 
@@ -222,7 +245,7 @@
 				try {
 					if (this.components.table.selectedItems.length == 1) {
 						const id = this.components.table.selectedItems[0];
-						const data = await this.getData("default.show", id);
+						const data = await this.getDataMixin("default.show", id);
 						this.defaultValue = data.defaultFormData;
 					}
 				} catch (error) {
@@ -233,8 +256,6 @@
 			// breadcrumb manage
 			addToBreadcrumb(e) {
 				if (!this.components.breadcrumb.values.includes(e)) {
-					this.clearSelectedItems();
-
 					let _default;
 					this.defaultTableData.forEach(element => {
 						if (element.TD_FID == e.TD_FID) {
@@ -249,9 +270,11 @@
 							// moshkel drm
 							this.components.table.unSelect = true;
 							this.updateTable(e.TD_FID);
+							this.clearSelectedItems();
+
 							this.components.form.show = false;
 						} else {
-							console.log("مجاز نیستید");
+							this.infoToast("شما مجاز به انجام این کار نیستید");
 						}
 					}
 				}
@@ -273,7 +296,7 @@
 			async updateTable() {
 				try {
 					this.$store.dispatch("tableRefresh/refreshStart");
-					const data = await this.getData(
+					const data = await this.getDataMixin(
 						"default.children",
 						this.currentDefaultID
 					);
