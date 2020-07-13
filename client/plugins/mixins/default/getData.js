@@ -12,9 +12,12 @@ export default {
         if (mode == 'default.insert' || mode == 'default.init') {
           url = "/default/" + groupId + "/init?mode=" + mode
         }
-        if (mode || 'default.children') {
+        if (mode == 'default.children') {
           url = "/default/" + defaultId + "/init?mode=" + mode
 
+        }
+        if (mode == 'default.show') {
+          url = "/default/" + defaultId + "/init?mode=" + mode
         }
 
 

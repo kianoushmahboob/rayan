@@ -98,6 +98,18 @@ class DefaultController extends Controller {
     }
   }
 
+  async update(req, res, next) {
+    try {
+      const data = req.body
+      const result = await Default.update(data)
+      this.responseHandler(result, res)
+
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+
   async getDefaultsForTable(req, res, next) {
     try {
       // تعیین اطلاعات مورد نیاز براساس حالت پارامتر
@@ -105,7 +117,8 @@ class DefaultController extends Controller {
       const id = req.params.id;
       const data = {
         defaultSchema: {},
-        defaultTableData: []
+        defaultTableData: [],
+        defaultFormData: {}
       }
       if (mode === "default.insert") {
         data.defaultSchema = await Default.getTableSchema('TDefault')
@@ -117,8 +130,24 @@ class DefaultController extends Controller {
         data.defaultTableData = await Default.getDefaultsChildren(id)
       } else if (mode === "default.children") {
         data.defaultTableData = await Default.getDefaultsChildren(id)
+      } else if (mode === "default.show") {
+        data.defaultFormData = await Default.findById(id)
+        console.log(await Default.findById(id))
       }
       res.json(data)
+    } catch (error) {
+      console.log(error)
+      next(error)
+    }
+  }
+
+  async delete(req, res, next) {
+    try {
+      const id = req.params.id
+      const result = await Default.delete(id)
+      console.log('result', result)
+      this.responseHandler(result, res)
+
     } catch (error) {
       console.log(error)
       next(error)

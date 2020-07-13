@@ -9,6 +9,7 @@ const isUser = require('./../../middleware/is-user')
 
 // controllers
 const DefaultController = require('./../../controller/default/defalutController')
+const defalutController = require('./../../controller/default/defalutController')
 // routes
 
 // router.get('/default', isAuthenticated, isUser, DefaultController.getData)
@@ -18,5 +19,9 @@ router.get('/default/:id/init', isAuthenticated, isUser, DefaultController.getDe
 router.get('/defaults/insert-user-form', isAuthenticated, isUser, DefaultController.getDataForInsertUserForm)
 
 router.post('/default', isAuthenticated, isUser, DefaultController.insert)
+
+router.delete('/default/:id', isAuthenticated, isUser, defalutController.delete)
+
+router.patch('/default', isAuthenticated, isUser, DefaultController.update)
 
 module.exports = router

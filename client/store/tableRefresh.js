@@ -1,6 +1,7 @@
 
 export const state = () => ({
-    refresh: false
+    refresh: false,
+    refreshButtonClicked: false
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
     }, refreshStart: (state) => {
         state.refresh = true
     },
+    refreshButtonClicked: (state) => {
+        state.refreshButtonClicked = !state.refreshButtonClicked
+    }
 
 }
 
@@ -19,10 +23,16 @@ export const actions = {
     refreshStart: (vuexContext) => {
         vuexContext.commit('refreshStart')
     },
+    refreshButtonClicked: (vuexContext) => {
+        vuexContext.commit('refreshButtonClicked')
+    }
 }
 
 export const getters = {
     refresh(state) {
         return state.refresh
     },
+    refreshButtonClicked(state) {
+        return state.refreshButtonClicked
+    }
 }

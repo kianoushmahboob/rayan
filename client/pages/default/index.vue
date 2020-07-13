@@ -30,7 +30,7 @@
 			idField="TD_FID"
 			@addToBreadcrumb="addToBreadcrumb"
 			@selectedRowChanged="selectedRowChanged"
-			@refresh="getNewDats"
+			@refresh="updateTable"
 		/>
 	</div>
 </template>
@@ -126,31 +126,51 @@
 		methods: {
 			// تابعی برایه مدیریت هدر اکشن ها
 			async headerManagerEventHandler(status) {
-				//   this.components.table.checkboxEnabled = false;
-				this.components.form.actionStatus = status;
-				if (status == "start") {
-					this.components.headerManager.status = status;
-					this.components.form.show = false;
-					// this.components.table.show = true;
-					// this.components.table.checkboxEnabled = true;
-				} else if (status == "insert") {
-					this.components.headerManager.status = status;
-					await this.insertInit();
-					// this.components.table.show = true;
-					// this.components.table.checkboxEnabled = true;
-					this.components.form.show = true;
-				} else if (status == "canceled") {
-					// this.components.form.show = true;
-					// az raveshe user bayd rft
-					this.headerManagerEventHandler("start");
-					// this.components.table.show = true;
-					// this.components.table.checkboxEnabled = true;
-				} else if (status == "delete") {
-					this.components.headerManager.status = status;
-					for (const id of this.components.table.selectedItems) {
-						this.submit("delete", id);
+				try {
+					this.components.table.checkboxEnabled = true;
+					this.components.form.actionStatus = status;
+					if (status == "start") {
+						this.components.headerManager.status = status;
+						this.components.form.show = false;
+					} else if (status == "insert") {
+						this.components.headerManager.status = status;
+						await this.insertInit();
+
+						this.components.table.checkboxEnabled = false;
+						this.components.form.show = true;
+					} else if (status == "show") {
+						this.components.headerManager.status = status;
+						// show data get .......
+						await this.editAndShowInit();
+						this.components.form.inputsReadonly = true;
+						this.components.table.show = true;
+						this.components.form.show = true;
+					} else if (status == "edit") {
+						this.components.headerManager.status = status;
+						// show data get .......
+						await this.editAndShowInit();
+						this.components.table.show = true;
+						this.components.form.show = true;
+					} else if (status == "canceled") {
+						this.components.form.show = false;
+						this.components.headerManager.status = this.selectingMode;
+						this.headerManagerEventHandler(this.selectingMode);
+					} else if (status == "delete") {
+						this.components.headerManager.status = status;
+						for (const id of this.components.table.selectedItems) {
+							this.submit("delete", id);
+						}
+					} else if (status == "done") {
+						this.components.headerManager.status = status;
+						this.components.form.show = false;
+						// this.components.form.show = false
+					} else if (status == "failed") {
+						this.components.headerManager.status = status;
+						this.components.form.show = true;
+						// this.components.form.show = false
 					}
-					// delete method
+				} catch (error) {
+					this.components.headerManager.status = "failed";
 				}
 			},
 			cancelEvent() {
@@ -158,22 +178,27 @@
 				this.components.headerManager.status = "canceled";
 				this.headerManagerEventHandler("canceled");
 			},
-			submitEvent() {
-				const status = this.components.headerManager.status;
-				// اعمال مربوط به تایید کردن عملیات
-				this.submit(status, this.defaultValue, this.currentDefaultID);
+			async submitEvent() {
+				try {
+					const status = this.components.headerManager.status;
+					// اعمال مربوط به تایید کردن عملیات
+					await this.submit(status, this.defaultValue, this.currentDefaultID);
+					this.components.headerManager.status = "done";
+					this.headerManagerEventHandler("done");
+				} catch (error) {
+					this.components.headerManager.status = "failed";
+				}
 			},
 			// checkbox changes
 			selectedRowChanged(selectedItems) {
 				this.components.table.selectedItems = selectedItems;
 				if (selectedItems.length === 0) {
-					this.components.headerManager.status = "show";
-					this.headerManagerEventHandler("show");
-					// this.components.profile.show = false;
+					this.components.headerManager.status = "not-selected";
+					this.components.form.show = false;
 				} else if (selectedItems.length === 1) {
 					this.components.headerManager.status = "selecting";
 				} else if (selectedItems.length > 1) {
-					// this.components.profile.show = false;
+					this.components.form.show = false;
 					this.components.headerManager.status = "multi-selecting";
 				}
 				// مقدار دهی حالت هدر بعد از انصراف
@@ -193,10 +218,23 @@
 					this.showResponseErrors(error);
 				}
 			},
+			async editAndShowInit() {
+				try {
+					if (this.components.table.selectedItems.length == 1) {
+						const id = this.components.table.selectedItems[0];
+						const data = await this.getData("default.show", id);
+						this.defaultValue = data.defaultFormData;
+					}
+				} catch (error) {
+					console.log(error);
+					this.showResponseErrors(error);
+				}
+			},
 			// breadcrumb manage
 			addToBreadcrumb(e) {
 				if (!this.components.breadcrumb.values.includes(e)) {
-					//   if (this.components.breadcrumb.values)
+					this.clearSelectedItems();
+
 					let _default;
 					this.defaultTableData.forEach(element => {
 						if (element.TD_FID == e.TD_FID) {
@@ -206,7 +244,12 @@
 					if (_default) {
 						if (_default.TD_FSubGroup) {
 							this.components.breadcrumb.values.push(e);
+							this.components.headerManager.status = "start";
+							this.headerManagerEventHandler("start");
+							// moshkel drm
+							this.components.table.unSelect = true;
 							this.updateTable(e.TD_FID);
+							this.components.form.show = false;
 						} else {
 							console.log("مجاز نیستید");
 						}
@@ -215,9 +258,16 @@
 			},
 			removeFromBreadcrumb() {
 				if (this.components.breadcrumb.values.length > 1) {
+					this.clearSelectedItems();
+
 					this.components.breadcrumb.values.pop();
 					this.updateTable();
+					this.components.form.show = false;
 				}
+			},
+			// clear selected items
+			clearSelectedItems() {
+				this.components.table.unSelect = !this.components.table.unSelect;
 			},
 			// update table
 			async updateTable() {
@@ -229,8 +279,6 @@
 					);
 					this.defaultTableData = data.defaultTableData;
 					this.$store.dispatch("tableRefresh/refreshStop");
-
-					// console.log("children", data);
 				} catch (error) {
 					console.log(error);
 				}

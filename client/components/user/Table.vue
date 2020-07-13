@@ -88,6 +88,9 @@
 			},
 			refresh() {
 				return this.$store.getters["tableRefresh/refresh"];
+			},
+			refreshButtonClicked() {
+				return this.$store.getters["tableRefresh/refreshButtonClicked"];
 			}
 		},
 		data: function() {
@@ -148,16 +151,7 @@
 
 			// تابع کامل کردن مسیر زیر گروه ها
 			addToBreadcrumb(e) {
-				// if (!this.breadcrumb.includes(e.name)) {
-				//   // کوتاه کردن عنوان مسیر تا 10 کاراکتر
-				//   if (e.name.length > 10) {
-				//     const newItem = e.name.substring(0, 10) + "...";
-				//     this.breadcrumb.push(newItem);
-				//   } else {
-				//     this.breadcrumb.push(e.name)
-				//   }
 				this.$emit("addToBreadcrumb", e);
-				// }
 			}
 		},
 		watch: {
@@ -174,12 +168,14 @@
 				}
 			},
 			clearRows(newValue) {
-				if (newValue) {
-					this.selectedRow = [];
-				}
+				this.selectedRow = [];
+				this.$emit("selectedRowChanged", this.selectedRow);
 			},
 			globalSearch(search) {
 				this.tableData = this.globalFilter(search);
+			},
+			refreshButtonClicked(value) {
+				this.$emit("refresh");
 			}
 		},
 		async created() {

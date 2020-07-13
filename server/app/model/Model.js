@@ -87,8 +87,6 @@ class Model {
             const result = await this.Database.request()
                 .query(`select  DBO.UFN_Coding('${tableName}', ${Year}) as code`)
 
-            console.log('Year', Year)
-            console.log('UFN_Coding', result)
             return result.recordset[0].code
         } catch (error) {
             console.log(error)

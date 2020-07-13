@@ -4,7 +4,8 @@ export default {
         async insert(data, TD_FID_Group) {
             try {
                 data.TD_FID_Group = TD_FID_Group
-                data = await this.$authAxios.$post('/default', data);
+                const responseData = await this.$authAxios.$post('/default', data);
+                return responseData
             } catch (error) {
                 console.log(error)
                 this.showResponseErrors(error);
@@ -13,7 +14,8 @@ export default {
         // arg default data
         async update(data) {
             try {
-                data = await this.$authAxios.$patch('/default', data);
+                const responseData = await this.$authAxios.$patch('/default', data);
+                return responseData
             } catch (error) {
                 console.log(error)
                 this.showResponseErrors(error);
@@ -22,25 +24,41 @@ export default {
         // arg default id
         async delete(defaultId) {
             try {
-                // data = await this.$authAxios.$delete('/default', { id: defaultId });
-                console.log('delete id', defaultId)
+                const data = await this.$authAxios.$delete('/default/' + defaultId);
+                return data
             } catch (error) {
                 console.log(error)
                 this.showResponseErrors(error);
             }
         },
         async submit(status, data, TD_FID_Group = 0) {
-            this.$store.dispatch("tableRefresh/refreshStart");
+            try {
 
-            if (status == "insert") {
-                await this.insert(data, TD_FID_Group)
-            } else if (status == "edit") {
-                await this.update(data)
-            } else if (status == "delete") {
-                await this.delete(data)
+                this.$store.dispatch("tableRefresh/refreshStart");
+
+                let result
+                if (status == "insert") {
+                    result = await this.insert(data, TD_FID_Group)
+                } else if (status == "edit") {
+                    result = await this.update(data)
+                } else if (status == "delete") {
+                    result = await this.delete(data)
+                }
+
+                if (result) {
+                    this.showResponseSuccessMessages(result);
+                    await this.updateTable()
+                }
+
+                this.$store.dispatch("tableRefresh/refreshStop");
+            } catch (error) {
+                // maybe need $emit("failed")
+                console.log(error)
+                this.showResponseErrors(error);
+                this.$store.dispatch("tableRefresh/refreshStop");
+
             }
-            this.$store.dispatch("tableRefresh/refreshStop");
-
         }
-    },
-}
+    }
+
+}           

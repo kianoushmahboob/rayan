@@ -11,7 +11,7 @@ class LoginController extends Controller {
         try {
             // check for valid request data
             const errors = this.validationErrorHandler(req, res, next)
-            if(errors) {
+            if (errors) {
                 return
             }
 
@@ -20,6 +20,7 @@ class LoginController extends Controller {
             const rememberMe = req.body.rememberMe || false
             // specifing the token expire time 
             const expiresIn = rememberMe ? '36d' : '12d'
+            const expiresInDay = rememberMe ? 36 : 12
             // const expiresIn = '1m'
 
             const user = await User.findByUsername(TU_FUserName)
@@ -43,10 +44,10 @@ class LoginController extends Controller {
             }, secretKey, { expiresIn })
 
             const result = await User.setToken(user.TU_FID, token)
-            if (this.responseErrorHandler(result, res) ) {
+            if (this.responseErrorHandler(result, res)) {
                 return
             }
-    
+
             const decodedToken = jwt.verify(token, secretKey)
 
             const responseData = {
@@ -59,8 +60,9 @@ class LoginController extends Controller {
                 TU_FIsUser: user.TU_FIsUser,
                 // other datas
                 token,
-                expiresIn: decodedToken.exp
-            } 
+                expiresIn: decodedToken.exp,
+                expiresInDay
+            }
 
             res.status(200).json(responseData)
 

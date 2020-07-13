@@ -11,6 +11,7 @@ export const state = () => ({
         TU_FIsUser: null,
         TU_FActive: null,
         TU_FPicAdd1: "",
+        expiresInDay: 0
         // ...otherdata
     }
 })
@@ -24,7 +25,7 @@ export const mutations = {
             localStorage.setItem([userKey], userData[userKey])
         }
         for (const userKey in userData) {
-            Cookie.set([userKey], userData[userKey])
+            Cookie.set([userKey], userData[userKey], { expires: userData.expiresInDay })
         }
     },
     setUserData(state, userData) {
@@ -74,6 +75,7 @@ export const actions = {
             TU_FIsUser: null,
             TU_FActive: null,
             TU_FPicAdd1: "",
+            expiresInDay: 0
         }
         if (req) {
             if (!req.headers.cookie) {
@@ -83,12 +85,7 @@ export const actions = {
         } else {
             for (const userKey in user) {
                 user[userKey] = localStorage.getItem([userKey])
-            } 
-        }
-        // حل ایراد پاک شدن کوکی
-        const isThereAnyUser = Cookie.get('TU_FID') != null
-        if (isThereAnyUser) {
-            createCookie(user)
+            }
         }
         // checkhing for right values in user
         // for (const userKey in user) {
@@ -185,7 +182,7 @@ function setUserActiveInCookieAndLocalStorage() {
 function createCorrectUrls(path) {
     let newPath = ''
     for (const [index, p] of path.split('%5C').entries()) {
-        if(index === 0) {
+        if (index === 0) {
             newPath += p
         } else {
             newPath += '/' + p

@@ -273,9 +273,16 @@
 					this.buttons.show.enable = false;
 					this.setSubmitAndCancelVisibility(true);
 				} else if (status === "show") {
+					this.buttons.edit.enable = true;
+					this.buttons.insert.enable = false;
+					this.buttons.delete.enable = true;
+					this.buttons.show.enable = false;
+					this.buttons.submit.enable = false;
+					this.buttons.cancel.enable = true;
+				} else if (status === "edit") {
 					this.buttons.edit.enable = false;
-					this.buttons.insert.enable = true;
-					this.buttons.delete.enable = false;
+					this.buttons.insert.enable = false;
+					this.buttons.delete.enable = true;
 					this.buttons.show.enable = false;
 					this.setSubmitAndCancelVisibility(true);
 				} else if (status === "selecting") {
@@ -283,14 +290,25 @@
 					this.buttons.insert.enable = true;
 					this.buttons.delete.enable = true;
 					this.buttons.show.enable = true;
-					this.setSubmitAndCancelVisibility(true);
+					this.setSubmitAndCancelVisibility(false);
 				} else if (status === "multi-selecting") {
-					this.buttons.edit.enable = true;
-					this.buttons.insert.enable = false;
+					this.buttons.edit.enable = false;
+					this.buttons.insert.enable = true;
 					this.buttons.delete.enable = true;
 					this.buttons.show.enable = false;
-					this.setSubmitAndCancelVisibility(true);
+					this.setSubmitAndCancelVisibility(false);
+				} else if (status === "not-selected") {
+					this.buttons.edit.enable = false;
+					this.buttons.insert.enable = true;
+					this.buttons.delete.enable = false;
+					this.buttons.show.enable = false;
+					this.setSubmitAndCancelVisibility(false);
 				} else if (status === "canceled") {
+					this.setSubmitAndCancelVisibility(false);
+				} else if (status === "failed") {
+					this.buttons.edit.enable = false;
+					this.setSubmitAndCancelVisibility(true);
+				} else if (status === "done") {
 					this.setSubmitAndCancelVisibility(false);
 				}
 				// Default
@@ -303,7 +321,7 @@
 		},
 		watch: {
 			buttonVisibility(status, oldStatus) {
-				console.log("status", status);
+				// console.log("status", status);
 				if (this.generalHeaderStatus === "User") {
 					this.buttonVisibilityForUserStatus(status, oldStatus);
 				} else if (this.generalHeaderStatus === "Profile") {
