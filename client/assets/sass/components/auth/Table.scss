@@ -16,7 +16,7 @@
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
-    height: 10px;
+    height: 15px;
   }
   
   /* Track */
@@ -179,6 +179,22 @@
     .v-pagination {
         justify-content: flex-start !important;
     }
+}
+.subgroup { 
+    width: 100%;
+    text-align: right;
+    transition: all 400ms;
+    padding: 5px ;
+    &:hover { 
+        background:#e27973 !important;
+        box-shadow: 1px 1px 5px #888;
+        color : white ;
+    }
+}
+.activeSubGroup { 
+    background:#e27973 !important;
+    box-shadow: 1px 1px 5px #888;
+    color : white ;
 }
 
 .v-select {

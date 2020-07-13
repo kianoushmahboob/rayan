@@ -90,8 +90,7 @@
     border-radius: 50%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 15px;
-    margin: 15px 0px 15px 35px;
+    margin: 0px 0px 0px 35px;
 }
 .col-md-3 {
     margin-top: 0px !important;
@@ -104,36 +103,7 @@
     }
 }
 
-.cardGrid {
-    padding: 5px;
-    background: #fffff;
-    box-shadow: inset 0px 0px 2px #000;
-    position: relative;
-    margin: 5px 35px 10px 35px;
-    .ActivityCheckbox {
-        width: 15px !important;
-        position: absolute;
-        top: 0px;
-        right: 8px;
-        margin-top: 0px;
-        padding: 0px;
-        margin-right: 0px !important;
-    }
-    .ActivityText {
-        background: $white;
-        border-radius: 5px;
-        margin-left: 15px;
-        margin-right: 15px;
-        .activityBoxText {
-            color: $black;
-            font-size: 11pt;
-            border-left: 2px solid #eaeaea;
-            overflow-y: scroll;
-            height: 100px;
-            line-height: 1.7;
-        }
-    }   
-}
+
 
 .ActivitycardBox {
     border-left: 2px solid rgb(202, 202, 202);
@@ -166,4 +136,12 @@
 }
 .ActivitycardBoxStatus { 
     color: $green;
+}
+.cardDescription { 
+    white-space: normal;
+}
+.cardActionBtn { 
+    border-bottom: 1px solid rgb(184, 184, 184);
+    margin-left: 12px;
+    margin-right: 12px;
 }

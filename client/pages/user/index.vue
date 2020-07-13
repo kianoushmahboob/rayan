@@ -92,6 +92,7 @@
 					profile: { show: true, actionStatus: "", inputsReadonly: true }
 				},
 				tableSchema: {
+					TU_FROWNUM: "ردیف",
 					TU_FUserName: "نام کاربری",
 					TU_FCode: "کد شخص",
 					TU_FNameFamil: "نام و نام خانوادگی",

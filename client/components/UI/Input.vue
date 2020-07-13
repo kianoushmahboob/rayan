@@ -33,11 +33,17 @@ export default {
   },
   mixins: [inputMixin],
   methods: {
+    
     sendBackInputValue(e) {
-      this.validate();
+      // console.log('e', e)
+      // console.log('target.value', e.target.value)
+     
+      this.validate(e.target.value);
       if (!this.checkMaxLength()) {
         this.$emit("input", e.target.value);
       }
+      
+
     },
     clickInput() {
       this.validate();

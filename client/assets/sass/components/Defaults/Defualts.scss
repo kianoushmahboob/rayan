@@ -6,6 +6,11 @@
 .leftNav{
     text-align: left;
  }
+ .defaultForm { 
+    input:disabled { 
+        background: #e9ecef !important;
+    }
+}
 .breadcrumb {
     position: relative;
     background-color: #ececec;
@@ -98,6 +103,8 @@
         height: 100%;
         padding: 7px;
     }
+
+
 
    
     @media (min-width: 320px) and (max-width: 480px) {

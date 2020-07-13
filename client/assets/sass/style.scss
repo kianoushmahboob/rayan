@@ -68,7 +68,7 @@ $gradient: linear-gradient(270deg, rgba(226, 121, 115, 1) 0%, rgba(226, 121, 115
 }
 
 .w-auto {
-  width: auto;
+  width: auto !important;
 }
 .no-border {
   border: 0px !important;
