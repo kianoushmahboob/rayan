@@ -15,7 +15,7 @@
               <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است،</p>
             </v-col>
             <v-col>
-              <button type="button" name="button">ثبت نام</button>
+              <NuxtLink tag="button" type="button" to="/" v-if="!isAuthenticated">خانه</NuxtLink>
             </v-col>
           </v-row>
         </v-col>

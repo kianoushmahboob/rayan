@@ -123,8 +123,6 @@ export default {
     async submit() {
       try {
         let userData = {...this.userSchema, confirmPassword: this.confirmPassword};
-        
-
         const result = await this.$axios.$post("/register", userData);
         this.showResponseSuccessMessages(result)
         this.$router.push("/login");

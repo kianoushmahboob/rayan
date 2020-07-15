@@ -43,7 +43,6 @@ export default {
       if (this.type != "" && value != undefined) {
         this.errorMessages = []
       }
-
       this.checkRequired()
       this.checkMinLength()
       this.checkMaxLength()
@@ -93,6 +92,7 @@ export default {
       
     },
     checkRequired () {
+      this.errorMessages = []
       if (this.required) {
         this.inputValue = this.value
         if (this.inputValue === '') {

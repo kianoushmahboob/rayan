@@ -37,12 +37,13 @@ export default {
         "breadcrumb",
         "clickableColumn",
         "idField",
-        "currentParentGroupID"
+        "currentParentGroupID",
+        "currentPage"
 
     ],
     computed: {
         // تعریف ستون های جدول
-
+      
         columns() {
             // custom columns name and table Schema data
             const columns = ["checkbox"];
@@ -145,6 +146,8 @@ export default {
     watch: {
         data() {
             this.tableData = this.data;
+        },
+        currentPage(newValue) {
         },
         selectedRow() {
             const allSelectedId = document.getElementById("allSelected");

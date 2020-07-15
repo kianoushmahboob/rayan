@@ -1,38 +1,36 @@
 
 export const state = () => ({
-    refresh: false,
-    search: ''
+    page: 1,
+    oldPage: 1,
 })
 
 export const mutations = {
-    refreshStop: (state) => {
-        state.refresh = false
-    }, refreshStart: (state) => {
-        state.refresh = true
-    },
-    setSearch(state, search) {
-        state.search = search
-    }
+ setPage(state, payLoad) {
+     
+     state.page = payLoad
+     console.log('setPage store', state.page)
+ },
+ setOldPage(state, payLoad) {
+     
+    state.oldPage = payLoad
+    console.log('setPage store', state.page)
+}
 }
 
 export const actions = {
-    refreshStop: (vuexContext) => {
-        vuexContext.commit('refreshStop')
+    setPage(VueContext, payLoad) {
+        VueContext.commit('setPage', payLoad)
     },
-    refreshStart: (vuexContext) => {
-        vuexContext.commit('refreshStart')
-    },
-    setSearch(vuexContext, search) {
-        vuexContext.commit('setSearch', search)
-
+    setOldPage(VueContext, payLoad) {
+        VueContext.commit('setOldPage', payLoad)
     }
 }
 
 export const getters = {
-    refresh(state) {
-        return state.refresh
-    },
-    search(state) {
-        return state.search
-    }
+getPage(state) {
+    return state.page
+},
+getOldPage(state) {
+    return state.page
+},
 }

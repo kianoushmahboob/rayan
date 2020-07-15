@@ -6,7 +6,7 @@
 
     <Breadcrumb :breadcrumb="components.breadcrumb.values" nameField="TD_FName" @removeFromBreadcrumb="removeFromBreadcrumb" />
 
-    <Table :v-if="components.table.show" :data="defaultTableData" :dataSchema="components.table.schema" :clearRows="components.table.unSelect" :checkboxDisabled="components.table.checkboxEnabled" :clickableColumn="components.table.clickableColumn" :breadcrumb="components.breadcrumb.values" idField="TD_FID" :currentParentGroupID="currentParentGroupID" @addToBreadcrumb="addToBreadcrumb" @selectedRowChanged="selectedRowChanged" @refresh="updateTable" />
+    <Table :v-if="components.table.show" :data="defaultTableData" :currentPage="components.table.currentPage" :dataSchema="components.table.schema" :clearRows="components.table.unSelect" :checkboxDisabled="components.table.checkboxEnabled" :clickableColumn="components.table.clickableColumn" :breadcrumb="components.breadcrumb.values" idField="TD_FID" :currentParentGroupID="currentParentGroupID" @addToBreadcrumb="addToBreadcrumb" @selectedRowChanged="selectedRowChanged" @refresh="updateTable" />
 </div>
 </template>
 
@@ -66,6 +66,8 @@ export default {
                     unSelect: false,
                     clickableColumn: "TD_FName",
                     selectedItems: [],
+                    currentPage: null,
+                    oldPage: null,
                     schema: {
                         TD_FROWNUM: "ردیف",
                         TD_FCode: "کد",
@@ -110,7 +112,13 @@ export default {
                 return breadcrumbs[breadcrumbs.length - 1].TD_FID;
             }
             return 0;
-        }
+        },
+        page() {
+            return this.$store.getters["table/getPage"];
+        },
+        oldPage() {
+            return this.$store.getters["table/getOldPage"];
+        },
     },
     mounted() {
         // تعیین حالت اولیه هدر و فرم
@@ -267,6 +275,12 @@ export default {
                         this.components.headerManager.status = "start";
                         this.headerManagerEventHandler("start");
                         // moshkel drm
+                        this.$store.dispatch("table/setOldPage", this.page);
+                        this.$store.dispatch("table/setPage", null);
+
+                        console.log('this.oldPage this.oldPage', this.oldPage)
+                        console.log('this.page this.page', this.page)
+
                         this.components.table.unSelect = true;
                         this.updateTable(e.TD_FID);
                         this.clearSelectedItems();
@@ -280,10 +294,17 @@ export default {
         },
         removeFromBreadcrumb() {
             if (this.components.breadcrumb.values.length > 1) {
+
                 this.currentParentGroupID = this.components.breadcrumb.values.pop().TD_FID;
                 this.clearSelectedItems();
-                // this.components.breadcrumb.values.pop();
+                const oldPage = this.oldPage
+                // this.$store.dispatch("table/setPage", this.oldPage);
+                // this.$store.dispatch("table/setOldPage", null);
+                console.log('this.oldPage this.oldPage', oldPage)
+                console.log('this.page this.page', this.page)
+
                 this.updateTable();
+
                 this.components.form.show = false;
             }
         },
