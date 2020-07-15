@@ -1,5 +1,22 @@
 
 export const state = () => ({
+
+    page: 1,
+    oldPage: 1,
+})
+
+export const mutations = {
+ setPage(state, payLoad) {
+     
+     state.page = payLoad
+     console.log('setPage store', state.page)
+ },
+ setOldPage(state, payLoad) {
+     
+    state.oldPage = payLoad
+    console.log('setPage store', state.page)
+}
+
     refresh: false,
     search: '',
     paginateGoInside: false,
@@ -21,15 +38,17 @@ export const mutations = {
     changePaginateGoOutside(state) {
         state.paginateGoOutside = !state.paginateGoOutside
     }
+
 }
 
 export const actions = {
-    refreshStop: (vuexContext) => {
-        vuexContext.commit('refreshStop')
+    setPage(VueContext, payLoad) {
+        VueContext.commit('setPage', payLoad)
     },
-    refreshStart: (vuexContext) => {
-        vuexContext.commit('refreshStart')
-    },
+
+    setOldPage(VueContext, payLoad) {
+        VueContext.commit('setOldPage', payLoad)
+
     setSearch(vuexContext, search) {
         vuexContext.commit('setSearch', search)
     },
@@ -38,10 +57,19 @@ export const actions = {
     },
     changePaginateGoOutside(vuexContext) {
         vuexContext.commit("changePaginateGoOutside")
+
     }
 }
 
 export const getters = {
+
+getPage(state) {
+    return state.page
+},
+getOldPage(state) {
+    return state.page
+},
+
     refresh(state) {
         return state.refresh
     },
@@ -54,4 +82,5 @@ export const getters = {
     changePaginateGoOutside(state) {
         return state.paginateGoOutside
     }
+
 }

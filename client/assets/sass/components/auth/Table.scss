@@ -78,7 +78,7 @@
         .v-icon.v-icon {
             display: inline;
             float: left;
-            color: $white;
+            color: #ffffff7c;
             transform: scaleX(-1);
         }
         .v-input__icon i {
@@ -111,10 +111,13 @@
             thead tr th input {
                 width: 100%;
                 height: 20px;
-                background-color: #ffffff;
+                background-color: $white;
                 padding: 5px;
                 border-radius: 3px;
                 color: $black;
+                &:focus { 
+                    background-color: rgb(255, 249, 221);
+                }
             }
             .v-input__slot {
                 transform: scalex(-1);

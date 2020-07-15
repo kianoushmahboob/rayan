@@ -2,7 +2,7 @@ const sql = require('mssql')
 const autoBind = require('auto-bind')
 
 const config = {
-    server: "localhost",
+    server: "NODE-PC\\Mssql2014",
     database: "DB_Rayan",
     user: "sa",
     password: "Mssql2014",

@@ -23,6 +23,10 @@
 			@removeFromBreadcrumb="removeFromBreadcrumb"
 		/>
 
+
+    <Table :v-if="components.table.show" :data="defaultTableData" :currentPage="components.table.currentPage" :dataSchema="components.table.schema" :clearRows="components.table.unSelect" :checkboxDisabled="components.table.checkboxEnabled" :clickableColumn="components.table.clickableColumn" :breadcrumb="components.breadcrumb.values" idField="TD_FID" :currentParentGroupID="currentParentGroupID" @addToBreadcrumb="addToBreadcrumb" @selectedRowChanged="selectedRowChanged" @refresh="updateTable" />
+</div>
+
 		<Table
 			:v-if="components.table.show"
 			:data="defaultTableData"
@@ -38,6 +42,7 @@
 			@refresh="updateTable"
 		/>
 	</div>
+
 </template>
 
 <script>
@@ -56,6 +61,122 @@
 	// .getData(mode) mode= default.init , default.insert , ...
 	import DefaultGetDataMixin from "./../../plugins/mixins/default/getData";
 	import DefaultSubmitDataMixin from "./../../plugins/mixins/default/submitData";
+
+
+export default {
+    layout: "auth",
+    middleware: ["init-auth", "is-auth", "is-user"],
+    mixins: [DefaultGetDataMixin, DefaultSubmitDataMixin],
+    components: {
+        HeaderManager,
+        Breadcrumb,
+        Form,
+        Table
+    },
+    async asyncData({
+        app,
+        store
+    }) {
+        // گرفتن اطلاعات مورد نیاز برای شروع برنامه
+        // get all defaults data
+        const data = await app.$axios.$get("/default/0/init?mode=default.init", {
+            headers: {
+                Authorization: "Bearer " + store.getters["login/getUserData"]().token
+            }
+        });
+        return {
+            //
+            defaultSchema: data.defaultSchema,
+            defaultValue: data.defaultSchema,
+            defaultTableData: data.defaultTableData
+        };
+    },
+    data() {
+        return {
+            // submit: false,
+            // cancel: false,
+            components: {
+                table: {
+                    show: true,
+                    checkboxEnabled: true,
+                    unSelect: false,
+                    clickableColumn: "TD_FName",
+                    selectedItems: [],
+                    currentPage: null,
+                    oldPage: null,
+                    schema: {
+                        TD_FROWNUM: "ردیف",
+                        TD_FCode: "کد",
+                        TD_FName: "نام",
+                        TD_FCaption: "عنوان",
+                        TD_FValue1: "مقدار 1",
+                        TD_FValue2: "مقدار 2",
+                        TD_FValue3: "مقدار 3",
+                        TD_FOrder: "ترتیب",
+                        TD_FSubGroupName: "زیرگروه دارد",
+                        TD_FDateReg: "تاریخ ثبت",
+                        TD_FUserRegName: "کاربر ثبت کننده"
+                    }
+                },
+                headerManager: {
+                    show: true,
+                    generalStatus: "Default",
+                    status: ""
+                },
+                form: {
+                    show: false,
+                    actionStatus: "",
+                    inputsReadonly: true
+                },
+                breadcrumb: {
+                    show: true,
+                    values: [{
+                        TD_FName: "خانه"
+                    }]
+                }
+            },
+            currentParentGroupID: 0,
+
+            selectingMode: "start"
+        };
+    },
+    // آخرین زیرگروه فعال parent
+    computed: {
+        currentDefaultID() {
+            const breadcrumbs = this.components.breadcrumb.values;
+            if (breadcrumbs.length > 1) {
+                return breadcrumbs[breadcrumbs.length - 1].TD_FID;
+            }
+            return 0;
+        },
+        page() {
+            return this.$store.getters["table/getPage"];
+        },
+        oldPage() {
+            return this.$store.getters["table/getOldPage"];
+        },
+    },
+    mounted() {
+        // تعیین حالت اولیه هدر و فرم
+        this.headerManagerEventHandler("start");
+    },
+    methods: {
+        // تابعی برایه مدیریت هدر اکشن ها
+        async headerManagerEventHandler(status) {
+            try {
+                const oldStatus = this.components.form.actionStatus;
+                this.components.table.checkboxEnabled = true;
+                this.components.form.actionStatus = status;
+                if (status == "start") {
+                    this.components.headerManager.status = status;
+                    this.components.form.show = false;
+                } else if (status == "insert") {
+                    this.components.headerManager.status = status;
+                    this.components.form.inputsReadonly = false
+                    // جلوگیری از به روزرسانی اطلاعات در صورت مواجه شدن با خطا در عملیات قبلی
+                    if (oldStatus != "failed") {
+                        await this.insertInit();
+                    }
 
 	export default {
 		layout: "auth",
@@ -163,6 +284,7 @@
 							await this.insertInit();
 						}
 
+
 						this.components.table.checkboxEnabled = false;
 						this.components.form.show = true;
 					} else if (status == "show") {
@@ -259,6 +381,98 @@
 						this.currentDefaultID
 					);
 
+
+                this.defaultValue = {
+                    ...data.defaultSchema
+                };
+            } catch (error) {
+                console.log(error);
+                this.showResponseErrors(error);
+            }
+        },
+        async editAndShowInit() {
+            try {
+                if (this.components.table.selectedItems.length == 1) {
+                    const id = this.components.table.selectedItems[0];
+                    const data = await this.getDataMixin("default.show", id);
+                    this.defaultValue = data.defaultFormData;
+                }
+            } catch (error) {
+                console.log(error);
+                this.showResponseErrors(error);
+            }
+        },
+        // breadcrumb manage
+        addToBreadcrumb(e) {
+            if (!this.components.breadcrumb.values.includes(e)) {
+                let _default;
+                this.defaultTableData.forEach(element => {
+                    if (element.TD_FID == e.TD_FID) {
+                        _default = {
+                            ...element
+                        };
+                    }
+                });
+                if (_default) {
+                    if (_default.TD_FSubGroup) {
+                        this.components.breadcrumb.values.push(e);
+                        this.components.headerManager.status = "start";
+                        this.headerManagerEventHandler("start");
+                        // moshkel drm
+                        this.$store.dispatch("table/setOldPage", this.page);
+                        this.$store.dispatch("table/setPage", null);
+
+                        console.log('this.oldPage this.oldPage', this.oldPage)
+                        console.log('this.page this.page', this.page)
+
+                        this.components.table.unSelect = true;
+                        this.updateTable(e.TD_FID);
+                        this.clearSelectedItems();
+
+                        this.components.form.show = false;
+                    } else {
+                        this.infoToast("شما مجاز به انجام این کار نیستید");
+                    }
+                }
+            }
+        },
+        removeFromBreadcrumb() {
+            if (this.components.breadcrumb.values.length > 1) {
+
+                this.currentParentGroupID = this.components.breadcrumb.values.pop().TD_FID;
+                this.clearSelectedItems();
+                const oldPage = this.oldPage
+                // this.$store.dispatch("table/setPage", this.oldPage);
+                // this.$store.dispatch("table/setOldPage", null);
+                console.log('this.oldPage this.oldPage', oldPage)
+                console.log('this.page this.page', this.page)
+
+                this.updateTable();
+
+                this.components.form.show = false;
+            }
+        },
+        // clear selected items
+        clearSelectedItems() {
+            this.components.table.unSelect = !this.components.table.unSelect;
+        },
+        // update table
+        async updateTable() {
+            try {
+                this.$store.dispatch("tableRefresh/refreshStart");
+                const data = await this.getDataMixin(
+                    "default.children",
+                    this.currentDefaultID
+                );
+                this.defaultTableData = data.defaultTableData;
+                this.$store.dispatch("tableRefresh/refreshStop");
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+};
+
 					this.defaultValue = {
 						...data.defaultSchema
 					};
@@ -338,4 +552,5 @@
 			}
 		}
 	};
+
 </script>

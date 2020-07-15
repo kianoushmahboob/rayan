@@ -1,4 +1,14 @@
 <template>
+
+        <!-- پیجینیشن بالای هدر  -->
+        <v-pagination
+            v-if="props.totalPages>1"
+                :length="props.totalPages"
+                v-model="props.page"
+                total-visible="10"
+                color="red darken-3"
+                @input="click"/>
+
 	<!-- پیجینیشن بالای هدر  -->
 	<v-pagination
 		v-if="props.totalPages>1"
@@ -8,10 +18,49 @@
 		color="red darken-3"
 		@input="page => props.setPage(page)"
 	/>
+
 </template>
 
 <script>
 	import Pagination from "vue-pagination-2";
+
+
+    export default {
+        name: "VtPagination",
+        components: {
+            Pagination
+        },
+        data() {
+            return {
+                paginate: 1
+            }
+        },
+        props: ['props'],
+        computed: {
+            page() {
+					return this.$store.getters["table/getPage"];
+            }
+        },
+        methods: {
+            click(e) {
+					this.$store.dispatch("table/setPage", e);
+                this.props.setPage(e)
+                                                // console.log('vpaginae table page', e)
+
+            }
+        },
+        watch: {
+            page(newValue) {
+                // this.paginate = newValue
+                console.log('aaaaaaaaaaaaa', newValue)
+                                // this.props.setPage(newValue)
+                                // console.log('vpaginae table page', newValue)
+                                //                 this.props.setPage(newValue)
+
+
+            }
+        }
+    }
 
 	export default {
 		name: "VtPagination",
@@ -51,4 +100,5 @@
 			}
 		}
 	};
+
 </script>

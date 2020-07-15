@@ -16,6 +16,8 @@
 .v-select [class*=v-select-btn] {
     padding-left: 0.3em;
     padding-right: 0.3em;
+    padding-top: 0px;
+    margin-top: -4px;
 }
 .form__label__select {
     top: -10px !important;
@@ -23,7 +25,7 @@
     top: 0;
     display: block;
     transition: 0.2s;
-    font-size: 1rem;
+    font-size: 10pt;
     color: #666666;
 }
 .v-select-selected {
@@ -44,7 +46,7 @@
     
 }
 .v-select-btn{
-    font-size: 10pt !important;
+    font-size: 11pt !important;
 }
 
 .v-select-option {
