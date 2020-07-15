@@ -47,7 +47,6 @@ class UserModel extends Model {
         try {
             let RetID
             let RetMsg
-            console.log("data", data)
 
             const result = await this.Database.request()
                 .input('State', this.sql.NVarChar, 'Insert')
