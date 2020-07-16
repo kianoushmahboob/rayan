@@ -1,14 +1,14 @@
 <template>
-    <Card />
+	<Card />
 </template>
-
+ 
 <script>
-import Card from '../../components/UI/Card'
+	import Card from "../../components/UI/Card";
 
-export default {
-      layout: "auth",
-components: { 
-    Card
-}     
-}
+	export default {
+		layout: "auth",
+		components: {
+			Card
+		}
+	};
 </script>

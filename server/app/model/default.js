@@ -10,7 +10,7 @@ class UserModel extends Model {
             let results = []
             for (let codeId of codeIds) {
                 const result = await this.Database.request()
-                    .input('State', this.sql.NVarChar, 'MainGroup')
+                    .input('State', this.sql.NVarChar, 'MainGroup_TDefault')
                     .input('Year', this.sql.Int, process.env.YEAR_ACCOUNTING)
                     .input('FID_Group', this.sql.Int, codeId)
                     .execute('USP_TDefault_Select')
@@ -32,7 +32,7 @@ class UserModel extends Model {
         try {
             let results = []
             const result = await this.Database.request()
-                .input('State', this.sql.NVarChar, 'Combo')
+                .input('State', this.sql.NVarChar, 'Combo_TDefault')
                 .input('Year', this.sql.Int, process.env.YEAR_ACCOUNTING)
                 .input('FID_Group', this.sql.Int, groupId)
                 .execute('USP_TDefault_Select')
@@ -89,10 +89,10 @@ class UserModel extends Model {
 
             const result = await this.Database.request()
                 .input('FID', this.sql.BigInt, id)
+                .input('TableName', this.sql.NVarChar, "TDefault")
                 .output('RetID', this.sql.BigInt, RetID)
                 .output('RetMsg', this.sql.NVarChar, RetMsg)
                 .execute('USP_TDefault_Del')
-            console.log("result", result)
             return result
         } catch (error) {
             console.log(error)
@@ -104,11 +104,10 @@ class UserModel extends Model {
         try {
             let results = []
             const result = await this.Database.request()
-                .input('State', this.sql.NVarChar, 'MainGroup')
+                .input('State', this.sql.NVarChar, 'MainGroup_TDefault')
                 .input('Year', this.sql.Int, process.env.YEAR_ACCOUNTING)
                 .input('FID_Group', this.sql.BigInt, id)
                 .execute('USP_TDefault_Select')
-            console.log('result', result)
             return result.recordset[0]
         } catch (error) {
             console.log(error)

@@ -5,7 +5,7 @@ const Controller = require('../controller/Controller')
 const Date = require('./../../helper/date')
 
 class UserModel extends Model {
-    constructor() {
+    constructor () {
         super()
     }
 
@@ -99,6 +99,7 @@ class UserModel extends Model {
                 .input('FID', this.sql.BigInt, id)
                 .execute('USP_TUser_Select')
             return result.recordset[0]
+
         } catch (error) {
             console.log(error)
             return null
@@ -342,7 +343,7 @@ class UserModel extends Model {
         try {
             let RetID
             let RetMsg
-            
+
             const date = Date.Now().date + Date.Now().timeWithSecond
             const result = await this.Database.request()
                 .input('State', this.sql.NVarChar, 'SetLogin')
@@ -361,7 +362,7 @@ class UserModel extends Model {
         try {
             let RetID
             let RetMsg
-            
+
             const date = Date.Now().date + Date.Now().timeWithSecond
             const result = await this.Database.request()
                 .input('State', this.sql.NVarChar, 'TUserList')
@@ -378,7 +379,7 @@ class UserModel extends Model {
         try {
             let RetID
             let RetMsg
-            
+
             const result = await this.Database.request()
                 .input('TableName', this.sql.NVarChar, 'TUser')
                 .input('FID', this.sql.BigInt, id)
@@ -392,7 +393,7 @@ class UserModel extends Model {
             return null
         }
     }
-    
+
 }
 
 module.exports = new UserModel()

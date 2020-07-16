@@ -141,8 +141,9 @@ class DefaultController extends Controller {
       } else if (mode === "default.children") {
         data.defaultTableData = await Default.getDefaultsChildren(id)
       } else if (mode === "default.show") {
+        // console.log("default.show", id)
         data.defaultFormData = await Default.findById(id)
-        console.log(await Default.findById(id))
+        // console.log(await Default.findById(id))
       }
       res.json(data)
     } catch (error) {
