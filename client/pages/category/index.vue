@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<div>
 		<HeaderManager
 			@submit="submitEvent"
@@ -344,3 +345,18 @@
 		}
 	};
 </script>
+=======
+	<Form />
+</template>
+ 
+<script>
+	import Form from "../../components/category/Form";
+
+	export default {
+		layout: "auth",
+		components: {
+			Form
+		}
+	};
+</script>
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b

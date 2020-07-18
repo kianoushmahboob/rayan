@@ -7,14 +7,20 @@
 					lable="کد"
 					type="int"
 					icon="user"
+<<<<<<< HEAD
 					name="TC_FCode"
 					v-model="data.TC_FCode"
+=======
+					name=""
+					v-model="a"
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 					required
 					:readonly="readonly"
 				/>
 			</v-col>
 
 			<v-col cols="6" md="3">
+<<<<<<< HEAD
 				<Input lable="نام" name="TC_FName" v-model="data.TC_FName" required :readonly="readonly" />
 			</v-col>
 
@@ -51,20 +57,109 @@
 
 			<v-col cols="6" md="3">
 				<Input lable="ترتیب" name="TC_FOrder" required v-model="data.TC_FOrder" :readonly="readonly" />
+=======
+				<Input lable="نام" 
+                name="" v-model="a" required :readonly="readonly" />
+			</v-col>
+
+			<v-col cols="6" md="3">
+				<Input lable="عنوان" name="TD_FCaption" v-model="a" :readonly="readonly" />
+			</v-col>
+
+			<v-col cols="6" md="3">
+				<Textarea lable="توضیحات" name="" v-model="a" :readonly="readonly" />
+			</v-col>
+
+			<v-col cols="6" md="3">
+				<Input
+					lable="متن html"
+					name=""
+					required
+					v-model="a"
+					:readonly="readonly"
+				/>
+			</v-col>
+
+			<v-col cols="6" md="3">
+                <label
+                  for="image1"
+                  class="profileFileLable"
+                >عکس 1</label>
+                <input
+                  type="file"
+                  ref="profileImage"
+                  name="photo"
+                  id="image1"
+                  class="profileFileInp"
+                />
+			</v-col>
+
+			<v-col cols="12" md="3" sm="12">
+                <label
+                  for="image2"
+                  class="profileFileLable"
+                >عکس 2</label>
+                <input
+                  type="file"
+                  ref="profileImage"
+                  name="photo"
+                  id="image2"
+                  class="profileFileInp"
+                />
+			</v-col>
+
+            
+			<v-col cols="12" md="3" sm="12">
+                <label
+                  for="image3"
+                  class="profileFileLable"
+                >عکس 2</label>
+                <input
+                  type="file"
+                  ref="profileImage"
+                  name="photo"
+                  id="image3"
+                  class="profileFileInp"
+                />
+			</v-col>
+
+            		<v-col cols="6" md="3">
+				<Input
+					lable="ترتیب"
+					name=""
+					required
+					v-model="a"
+					:readonly="readonly"
+				/>
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 			</v-col>
 		</v-row>
 
 		<v-row>
 			<v-col cols="6" class="pt-0 mt-0">
+<<<<<<< HEAD
 				<Checkbox lable="فعال" name="TC_FActive" v-model.number="data.TC_FActive" :readonly="readonly" />
 			</v-col>
 
 			<v-col cols="6" class="pt-0 mt-0">
 				<Checkbox lable="زیرگروه" name="TC_FSubGroup" v-model="data.TC_FSubGroup" :readonly="readonly" />
+=======
+				<Checkbox
+					lable="فعال"
+					name=""
+					v-model.number="a"
+					:readonly="readonly"
+				/>
+			</v-col>
+
+			<v-col cols="6" class="pt-0 mt-0">
+				<Checkbox lable="زیرگروه" name="" v-model="a" :readonly="readonly" />
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 			</v-col>
 		</v-row>
 
 		<v-row>
+<<<<<<< HEAD
 			<v-col cols="6" md="3">
 				<Datapicker
 					lable="تاریخ ثبت"
@@ -80,10 +175,28 @@
 					name="TC_FTimeReg"
 					required
 					v-model="data.TC_FTimeReg"
+=======
+			        		<v-col cols="6" md="3">
+				<Datapicker
+					lable="تاریخ ثبت"
+					name=""
+					required
+					v-model="a"
+					:readonly="readonly"
+				/>
+			</v-col>
+            			        		<v-col cols="6" md="3">
+				<Datapicker
+					lable="تاریخ ثبت"
+					name=""
+					required
+					v-model="a"
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 					:readonly="readonly"
 				/>
 			</v-col>
 
+<<<<<<< HEAD
 			<v-col cols="6" md="3">
 				<Select
 					lable="کاربر ثبت کننده"
@@ -93,15 +206,34 @@
 					name="TC_FUserReg"
 					required
 					v-model="data.TC_FUserReg"
+=======
+                <v-col cols="6" md="3">
+				<Datapicker
+					lable="کاربر ثبت کننده"
+					name=""
+					required
+					v-model="a"
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 					:readonly="readonly"
 				/>
 			</v-col>
 		</v-row>
+<<<<<<< HEAD
 		<!-- <v-row>
 			<v-col cols="6" md="3">
 				<Button lable="ثبت" type="insert" />
 		</v-col>-->
 		<!-- </v-row> -->
+=======
+        <v-row>
+                        <v-col cols="6" md="3">
+				<Button
+					lable="ثبت"
+                    type="insert"
+				/>
+			</v-col>
+        </v-row>
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 	</v-container>
 </template>
 
@@ -109,7 +241,13 @@
 	export default {
 		props: ["data", "readonly"],
 		data() {
+<<<<<<< HEAD
 			return {};
+=======
+			return {
+                a: ''
+            };
+>>>>>>> 6ea6f5bfefe103abeb21b65b6a192b2c51302d1b
 		}
 	};
 </script>
