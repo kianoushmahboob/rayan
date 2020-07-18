@@ -3,6 +3,7 @@ const express = require('express')
 const authRoutes = require('./auth/index')
 const userRoutes = require('./user/index')
 const defaultsRoutes = require('./default/index')
+const categoriesRoutes = require('./category/index')
 
 const router = express.Router()
 
@@ -13,5 +14,6 @@ const dbConnectionMiddleware = require('./../middleware/is-database-connected')
 router.use(dbConnectionMiddleware, authRoutes)
 router.use(dbConnectionMiddleware, defaultsRoutes)
 router.use(dbConnectionMiddleware, userRoutes)
+router.use(dbConnectionMiddleware, categoriesRoutes)
 
 module.exports = router
